@@ -1,0 +1,36 @@
+name: Stack deployment
+on:
+  workflow_dispatch:
+    inputs:
+      env_name:
+        description: 'Consult environment'
+        required: true
+        default: 'None'
+        type: choice
+        options:
+        - malky
+        - review
+        aws_region:
+          description: 'AWS region'
+          required: true
+          default: 'eu-west-1'
+          type: choice
+          options:
+          - eu-west-1
+          - us-east-1
+      audyx-git-ref:
+        required: true
+        default: 'None'
+      core-git-ref:
+        required: true
+        default: 'None'
+
+jobs:
+  log-the-inputs:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Env Name: ${{ inputs.env_name }}"
+          echo "AWS_REGION: ${{ inputs.aws_region }}"
+          echo "audyx-git-ref: ${{ inputs.audyx-git-ref }}"
+          echo "core-git-ref: ${{ inputs.core-git-ref }}"
